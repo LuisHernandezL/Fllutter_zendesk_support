@@ -115,8 +115,12 @@ class ZendeskFlutterSupportPlugin: FlutterPlugin, MethodCallHandler, ActivityAwa
     Zendesk.INSTANCE.init(activity, zendeskUrl,applicationId,clientId);
     Support.INSTANCE.init(Zendesk.INSTANCE);
     AnswerBot.INSTANCE.init(Zendesk.INSTANCE, Support.INSTANCE);
-    providerStore = Support.INSTANCE.provider()!!
-    requestProvider = providerStore.requestProvider()
+    if(Support.INSTANCE.provider() != null){
+      providerStore = Support.INSTANCE.provider()!!
+      if(providerStore.requestProvider() != null){
+        requestProvider = providerStore.requestProvider()!!
+      }
+    }
   }
 
   fun setVisitorInfo(call: MethodCall) {
