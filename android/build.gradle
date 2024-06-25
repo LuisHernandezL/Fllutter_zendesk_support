@@ -1,0 +1,59 @@
+group 'com.example.zendesk_flutter_support'
+version '1.0-SNAPSHOT'
+
+buildscript {
+    ext.kotlin_version = '1.6.10'
+    repositories {
+        google()
+        mavenCentral()
+    }
+
+    dependencies {
+        classpath 'com.android.tools.build:gradle:7.1.2'
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+    }
+}
+
+rootProject.allprojects {
+    repositories {
+        google()
+        mavenCentral()
+        maven { url 'https://zendesk.jfrog.io/zendesk/repo' }
+    }
+}
+
+apply plugin: 'com.android.library'
+apply plugin: 'kotlin-android'
+
+android {
+    compileSdkVersion 31
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    kotlinOptions {
+        jvmTarget = '1.8'
+    }
+
+    sourceSets {
+        main.java.srcDirs += 'src/main/kotlin'
+    }
+
+    defaultConfig {
+        minSdkVersion 21
+    }
+}
+
+dependencies {
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+    implementation group: 'com.zendesk', name: 'support', version: '5.1.2'
+    implementation group: 'com.zendesk', name: 'support-providers', version: '5.1.2'
+    implementation group: 'com.zendesk', name: 'chat', version: '3.3.7'
+    implementation group: 'com.zendesk', name: 'chat-providers', version: '3.3.7'
+    implementation group: 'com.zendesk', name: 'answerbot', version: '3.1.1'
+    implementation group: 'com.zendesk', name: 'messaging', version: '5.2.5'
+    implementation 'androidx.appcompat:appcompat:1.1.0'
+    implementation 'com.google.android.material:material:<version>'
+}
